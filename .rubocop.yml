@@ -1,6 +1,8 @@
 require:
   - rubocop-rails
   - rubocop-performance
+  - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   TargetRubyVersion: 2.7.8
