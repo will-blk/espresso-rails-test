@@ -55,14 +55,8 @@ jobs:
         gem install bundler
         bundle install --path vendor/bundle
 
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
-        cache: 'yarn'
-
     - name: Install Node dependencies
-      run: yarn
+      run: npm install
 
     - name: Run Rubocop
       run: |
