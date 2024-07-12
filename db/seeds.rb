@@ -8,6 +8,4 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-if User.admin.count.zero?
-  FactoryBot.create(:user, role: :admin, email: 'hello@world.com', password: '123456')
-end
+FactoryBot.create(:user, role: :admin, email: 'hello@world.com', password: '123456') if User.admin.count.zero?
