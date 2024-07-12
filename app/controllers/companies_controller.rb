@@ -1,9 +1,24 @@
 # frozen_string_literal: true
 
-class CompaniesController < ActionController::Base
+class CompaniesController < ApplicationController
   before_action :authenticate_user!
+  rescue_from ActionController::ParameterMissing, with: ->{ head :bad_request }
 
   def new; end
 
-  def create; end
+  def create
+    @company = Company.new(company_params)
+
+    if @company.save
+      redirect_to new_company_user_url(@company), notice: 'Company was successfully created.', status: :created
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def company_params
+    params.require(:company).permit(:name, :cnpj)
+  end
 end

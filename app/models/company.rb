@@ -2,5 +2,5 @@
 
 class Company < ApplicationRecord
   validates :name, :cnpj, presence: true
-  validates :cnpj, format: /\d{14}/
+  validates :cnpj, format: /\d{14}/, uniqueness: true
 end
