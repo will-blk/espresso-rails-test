@@ -9,6 +9,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  belongs_to :company
+
   validates :name, :role, presence: true
   validates :role, inclusion: { in: ROLES }
 end
