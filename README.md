@@ -1,3 +1,25 @@
+# Requerimentos
+
+* Ruby 2.7.8
+* Docker
+
+Para usuários linux, instale o cliente MySQL (dependência para gem mysql)
+
+* libmysqlclient-dev
+
+# Executar
+
+Para facilitar o desxenvolvimento, recomendamos utilizar a versão do MySQL em docker:
+
+```
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=mysecretpassword -p 3306:3306 -d mysql:latest
+```
+e depois execute normalmente o rails:
+
+```
+bundle exec rails s
+```
+
 # Teste Técnico para Desenvolvedores Ruby on Rails
 
 ### Introdução
