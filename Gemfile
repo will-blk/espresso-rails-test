@@ -52,6 +52,9 @@ group :development, :test do
 
   # Use rspec-rails for testing
   gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
+
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
