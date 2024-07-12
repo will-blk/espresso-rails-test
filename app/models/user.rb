@@ -9,8 +9,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :recoverable,
          :rememberable, :validatable
 
-  belongs_to :company
+  belongs_to :company, required: -> { :employee? }
 
   validates :name, :role, presence: true
-  validates :role, inclusion: { in: ROLES }
+  enum role: ROLES
 end
