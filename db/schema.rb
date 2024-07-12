@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 2024_07_12_151148) do
     t.string "role", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "companies_id"
-    t.index ["companies_id"], name: "index_users_on_companies_id"
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
