@@ -76,6 +76,7 @@ end
 
 group :test do
   # Use simplecov to track test coverage
+  gem 'shoulda-matchers'
   gem 'simplecov', '~> 0.22.0', require: false
 end
 
