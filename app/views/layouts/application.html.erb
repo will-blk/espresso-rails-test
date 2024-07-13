@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <%= react_component('Header') %>
+    <%= react_component('Header', user: @current_user) %>
     <%= yield %>
   </body>
 </html>
