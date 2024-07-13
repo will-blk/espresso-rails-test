@@ -8,20 +8,20 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = Card.new(card_params)
+    @card = ::Cards::Build.new(params[:user_id], card_params).execute
 
     authorize @card
 
     if @card.save
-      redirect_to company_users_url(@card.company), notice: 'Card was successfully created.', status: :created
+      render json: { message: 'Card was successfully created.', status: :created }
     else
-      render :new, status: :unprocessable_entity
+      render json: { errors: @card.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   private
 
   def card_params
-    params.require(:card).permit(:name, :cnpj)
+    params.require(:card).permit(:last4)
   end
 end
