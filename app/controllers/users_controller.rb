@@ -9,7 +9,9 @@ class UsersController < ApplicationController
     authorize @users
   end
 
-  def new; end
+  def new
+    authorize User
+  end
 
   def create
     @user = User.new(user_params.merge(company_id: params[:company_id]))
