@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :card do
     user
-    last4 { rand(1000..9999) }
+    last4 { Faker::Number.number(digits: 4) }
   end
 end
