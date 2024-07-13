@@ -4,10 +4,14 @@ class CompaniesController < ApplicationController
   before_action :authenticate_user!
   rescue_from ActionController::ParameterMissing, with: -> { head :bad_request }
 
-  def new; end
+  def new
+    authorize Company
+  end
 
   def create
     @company = Company.new(company_params)
+
+    authorize @company
 
     if @company.save
       redirect_to new_company_user_url(@company), notice: 'Company was successfully created.', status: :created
