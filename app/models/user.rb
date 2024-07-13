@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  ROLES = %i[
-    admin
-    employee
-  ].freeze
+  ROLES = {
+    admin: 'admin',
+    employee: 'employee'
+  }.freeze
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

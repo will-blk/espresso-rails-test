@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
+  has_many :users
+
   validates :name, :cnpj, presence: true
   validates :cnpj, format: /\A\d{14}\z/, uniqueness: true
 end

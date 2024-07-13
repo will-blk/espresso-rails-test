@@ -14,7 +14,7 @@ RSpec.describe 'UsersController' do
         user: {
           name: Faker::Name.name,
           email: Faker::Internet.unique.email,
-          role: User::ROLES.sample
+          role: User::ROLES.keys.sample
         }
       }
     end
@@ -45,6 +45,16 @@ RSpec.describe 'UsersController' do
 
         expect(response).to have_http_status(:unprocessable_entity)
       end
+    end
+  end
+
+  describe 'GET /companies/:id/users' do
+    before { create_list(:user, 4, company_id: company.id) }
+
+    it 'returns http ok' do
+      get("/companies/#{company.id}/users")
+
+      expect(response).to have_http_status(:ok)
     end
   end
 end

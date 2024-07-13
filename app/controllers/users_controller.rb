@@ -3,6 +3,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @users = Company.find(params[:company_id]).users
+  end
+
   def new; end
 
   def create
