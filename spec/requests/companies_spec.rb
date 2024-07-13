@@ -23,8 +23,12 @@ RSpec.describe 'CompaniesController' do
       expect(response).to have_http_status(:created)
     end
 
-    it 'saves company' do
+    it 'saves company', :aggregate_failures do
       expect { post('/companies', params: params) }.to change(Company, :count).by(1)
+      expect(Company.last.attributes).to include({
+        "cnpj" => params[:company][:cnpj],
+        "name" => params[:company][:name],
+      })
     end
 
     context 'with invalid params' do

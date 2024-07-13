@@ -49,7 +49,7 @@ RSpec.describe 'UsersController' do
   end
 
   describe 'GET /companies/:id/users' do
-    before { create_list(:user, 4, company_id: company.id) }
+    before { create_list(:user, 4, company: company) }
 
     it 'returns http ok' do
       get("/companies/#{company.id}/users")
