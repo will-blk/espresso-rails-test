@@ -22,11 +22,11 @@ const NewForm = () => {
   return (
     <React.Fragment>
       <Header/>
-      <h2>New Company</h2>
+      <h2>Nova Companhia</h2>
       <form autoComplete="off" onSubmit={handleSubmit}>
         <TextField id="outlined-basic" label="Nome" sx={{mb: 3}} fullWidth variant="outlined" required onChange={handleNameChange} value={name}/>
         <TextField id="outlined-basic" label="CNPJ" sx={{mb: 3}} fullWidth variant="outlined" required onChange={handleCnpjChange} value={cnpj}/>
-        <Button variant="outlined" size="medium" type="submit">Register</Button>
+        <Button variant="outlined" size="medium" type="submit">Registrar</Button>
       </form>
     </React.Fragment>
   )
