@@ -2,7 +2,6 @@
 
 class CompaniesController < ApplicationController
   before_action :authenticate_user!
-  rescue_from ActionController::ParameterMissing, with: -> { head :bad_request }
 
   def new
     authorize Company
