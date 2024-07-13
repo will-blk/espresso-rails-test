@@ -17,4 +17,12 @@ class User < ApplicationRecord
   validates :company, presence: true, if: -> { employee? }
 
   enum role: ROLES
+
+  before_validation :set_password, on: :create
+
+  private
+
+  def set_password
+    self.password ||= SecureRandom.hex(8)
+  end
 end

@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # root to: 'home#index'
 
-  resources :companies, only: %i[new create]
+  resources :companies, only: %i[new create] do
+    resources :users, only: %i[new create index]
+  end
 end
