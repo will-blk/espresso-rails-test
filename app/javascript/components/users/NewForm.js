@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react"
-import PropTypes from "prop-types"
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import Header from "../Header"
 
@@ -40,9 +39,5 @@ const NewForm = () => {
     </React.Fragment>
   )
 }
-
-NewForm.propTypes = {
-  timestamp: PropTypes.string
-};
 
 export default NewForm

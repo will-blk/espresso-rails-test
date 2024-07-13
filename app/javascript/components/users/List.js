@@ -19,7 +19,6 @@ const List = (props) => {
 
   return(
     <React.Fragment>
-      <Header/>
       <h2>Usuários</h2>
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>

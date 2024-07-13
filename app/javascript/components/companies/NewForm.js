@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react"
-import PropTypes from "prop-types"
 import { Button, TextField } from "@mui/material"
 import Header from "../Header"
 
@@ -21,7 +20,6 @@ const NewForm = () => {
 
   return (
     <React.Fragment>
-      <Header/>
       <h2>Nova Companhia</h2>
       <form autoComplete="off" onSubmit={handleSubmit}>
         <TextField id="outlined-basic" label="Nome" sx={{mb: 3}} fullWidth variant="outlined" required onChange={handleNameChange} value={name}/>
@@ -31,9 +29,5 @@ const NewForm = () => {
     </React.Fragment>
   )
 }
-
-NewForm.propTypes = {
-  timestamp: PropTypes.string
-};
 
 export default NewForm
