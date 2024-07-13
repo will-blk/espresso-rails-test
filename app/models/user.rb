@@ -11,6 +11,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :recoverable,
          :rememberable, :validatable
 
+  has_one :card
   belongs_to :company, optional: true
 
   validates :name, :role, presence: true

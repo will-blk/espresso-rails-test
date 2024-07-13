@@ -9,3 +9,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 FactoryBot.create(:user, role: :admin, email: 'hello@world.com', password: '123456') if User.admin.count.zero?
+FactoryBot.create(:company, user: User.first) if Company.count.zero?
+FactoryBot.create_list(:user, 5, role: :employee, company: Company.first) if User.employee.count.zero?
+
+if Card.count.zero?
+  User.employee.find_each do |employee|
+    FactoryBot.create(:card, user: employee)
+  end
+end
