@@ -15,9 +15,8 @@ Rails.application.routes.draw do
     end
   end
 
-  scope 'statements/:statement_id' do
-    patch 'archive', to: 'statements#archive'
-    patch 'attach_invoice', to: 'statements#attach_invoice'
+  resources :statements, only: %i[edit update] do
+    patch 'attach_invoice'
   end
 
   resources :companies, only: %i[new create] do

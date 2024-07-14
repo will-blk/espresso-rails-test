@@ -5,12 +5,20 @@ class StatementPolicy < ApplicationPolicy
     true
   end
 
-  def archive?
-    user.admin?
+  def update?
+    user.present?
   end
 
   def attach_invoice?
     user.employee? && record.card == user.card
+  end
+
+  def permitted_attributes_for_update
+    if user.admin?
+      [:archived]
+    else
+      [:category_id]
+    end
   end
 
   class Scope < ApplicationPolicy::Scope

@@ -9,12 +9,13 @@ const List = (props) => {
 
   const handleArchive = useCallback(async (event) => {
     try {
-      const response = await fetch(`/statements/${event.target.id}/archive.json`,{
+      const response = await fetch(`/statements/${event.target.id}`,{
          method: "PATCH",
          headers: {
            "X-CSRF-Token": token,
            "Content-Type": "application/json"
-         }
+         },
+         body: JSON.stringify({ statement: { archived: true } })
        })
        const json = await response.json()
 
@@ -58,6 +59,10 @@ const List = (props) => {
     }
   }, [])
 
+  const handleSetCategory = useCallback((event) => {
+    window.location.href = `/statements/${event.target.id}`
+  }, [])
+
   const employeeActions = useCallback((column, row) => (
     <TableCell key={column.id}>
       <Button
@@ -70,6 +75,17 @@ const List = (props) => {
       >
         Upload file
         <input type="file" onChange={handleAttach} id={row.id} hidden/>
+      </Button>
+      <Button
+        component="label"
+        role={undefined}
+        variant="contained"
+        tabIndex={-1}
+        id={row.id}
+        size="small"
+        onClick={handleSetCategory}
+      >
+        Categorizar
       </Button>
     </TableCell>
   ), [])

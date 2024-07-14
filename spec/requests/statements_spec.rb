@@ -8,15 +8,17 @@ RSpec.describe 'UsersController' do
 
   before { sign_in(user) }
 
-  describe 'PATCH /statements/:id/archive' do
+  describe 'PATCH /statements/:id' do
+    let(:params) { { statement: { archived: true } } }
+
     it 'returns http ok' do
-      patch("/statements/#{statement.id}/archive")
+      patch("/statements/#{statement.id}", params: params)
 
       expect(response).to have_http_status(:ok)
     end
 
     it 'updates archived status' do
-      expect { patch("/statements/#{statement.id}/archive") }.to change { statement.reload.archived }.from(false).to(true)
+      expect { patch("/statements/#{statement.id}", params: params) }.to change { statement.reload.archived }.from(false).to(true)
     end
   end
 end

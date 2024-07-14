@@ -10,15 +10,21 @@ class StatementsController < ApplicationController
     authorize Statement
   end
 
-  def archive
-    @statement = Statement.find(params[:statement_id])
+  def edit
+    @statement = Statement.find(params[:id])
+
+    authorize @statement
+  end
+
+  def update
+    @statement = Statement.find(params[:id])
 
     authorize @statement
 
-    if @statement.update(archived: true)
-      render json: { message: 'Statement was archived!' }
+    if @statement.update(permitted_attributes(@statement))
+      render json: { message: 'Statement was updated' }
     else
-      render json: { errors: @card.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @statement.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
