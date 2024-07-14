@@ -12,6 +12,7 @@ class StatementsController < ApplicationController
 
   def edit
     @statement = Statement.find(params[:id])
+    @categories = Category.where(company_id: current_user.company_id)
 
     authorize @statement
   end
@@ -33,10 +34,12 @@ class StatementsController < ApplicationController
 
     authorize @statement
 
-    if @statement.invoice.attach(attach_invoice_params[:file])
+    @statement.invoice.attach(attach_invoice_params[:file])
+
+    if @statement.reload.invoice.attached?
       render json: { message: 'Statement was archived!' }
     else
-      render json: { errors: @card.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @statement.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
