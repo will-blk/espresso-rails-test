@@ -9,6 +9,12 @@ Rails.application.routes.draw do
     resources :cards, only: %i[new create]
   end
 
+  namespace 'api' do
+    namespace 'baas' do
+      post 'webhook'
+    end
+  end
+
   resources :companies, only: %i[new create] do
     resources :users, only: %i[new create index]
     resources :categories, only: %i[new create]
