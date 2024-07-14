@@ -4,9 +4,8 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 const columns = [
   { id: 'id', label: 'ID', minWidth: 170 },
   { id: 'merchant', label: 'Empresa', minWidth: 170 },
-  { id: 'cost', label: 'Custo', minWidth: 100 },
+  { id: 'cost', label: 'Custo', minWidth: 100, format: /^(.*)(\d{2})$/, mask: "R$ $1,$2" },
   { id: 'performed_at', label: 'Gasto em', minWidth: 100 },
-  { id: 'last4', label: 'Digitos finais', minWidth: 100 },
   { id: 'transaction_id', label: 'Transacao' }
 ];
 
@@ -38,9 +37,10 @@ const List = (props) => {
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                       {columns.map((column) => {
+                        var value = row[column.id].toString()
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            {row[column.id]}
+                            { column.mask ? value.replace(column.format, column.mask) : value }
                           </TableCell>
                         );
                       })}
