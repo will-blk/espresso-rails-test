@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react"
 import { Button, FormControl, TextField } from "@mui/material"
 
-const NewForm = () => {
+const NewForm = (props) => {
+  const { user_id } = props
   const [lastDigits, setlastDigits] = useState('1234')
   const token = document.querySelector('meta[name="csrf-token"]').content
 
@@ -11,7 +12,7 @@ const NewForm = () => {
 
   const handleSubmit = useCallback(async () => {
     try {
-     const response = await fetch(`/users/${1}/cards.json`,{
+     const response = await fetch(`/users/${user_id}/cards.json`,{
         method: "POST",
         headers: {
           "X-CSRF-Token": token,
@@ -33,7 +34,7 @@ const NewForm = () => {
     catch(error) {
       console.error(error)
     }
-  }, [])
+  }, [lastDigits, user_id, token])
 
   return (
     <React.Fragment>

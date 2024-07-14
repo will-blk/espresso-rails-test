@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react"
 import { Button, TextField } from "@mui/material"
-import Header from "../Header"
 
 const NewForm = () => {
   const [name, setName] = useState('')
@@ -14,9 +13,31 @@ const NewForm = () => {
     setCnpj(event.target.value)
   }, [])
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
+    try {
+     const response = await fetch(`/company`,{
+        method: "POST",
+        headers: {
+          "X-CSRF-Token": token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          company: { name: name, cnpj: cnpj }
+        })
+      })
+      const json = await response.json()
 
-  }, [])
+      if(response.status === 200) {
+        alert(json.message)
+      }
+      else {
+        alert(json.errors)
+      }
+    }
+    catch(error) {
+      console.error(error)
+    }
+  }, [name, cnpj, token])
 
   return (
     <React.Fragment>
