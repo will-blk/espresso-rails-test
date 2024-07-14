@@ -8,7 +8,7 @@ RSpec.describe 'BaasController' do
   before { sign_in(user) }
 
   describe 'POST /api/baas/webhook' do
-    let!(:card) { create(:card, last4: '1234')}
+    let!(:card) { create(:card, last4: '1234') }
     let(:params) do
       {
         'merchant' => 'Uber *UBER *TRIP',
