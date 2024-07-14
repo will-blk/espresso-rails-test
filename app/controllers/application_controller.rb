@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, unless: :devise_controller?
 
   rescue_from ActionController::ParameterMissing, with: -> { head :bad_request }
+  rescue_from Pundit::NotAuthorizedError, with: -> { head :unauthorized }
 
   private
 
