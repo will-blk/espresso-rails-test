@@ -21,4 +21,22 @@ class StatementsController < ApplicationController
       render json: { errors: @card.errors.full_messages }, status: :unprocessable_entity
     end
   end
+
+  def attach_invoice
+    @statement = Statement.find(params[:statement_id])
+
+    authorize @statement
+
+    if @statement.invoice.attach(attach_invoice_params[:file])
+      render json: { message: 'Statement was archived!' }
+    else
+      render json: { errors: @card.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def attach_invoice_params
+    params.permit(:file)
+  end
 end

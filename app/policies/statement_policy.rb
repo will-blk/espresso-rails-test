@@ -9,6 +9,10 @@ class StatementPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def attach_invoice?
+    user.employee? && record.card == user.card
+  end
+
   class Scope < ApplicationPolicy::Scope
     def resolve
       if user.admin?
