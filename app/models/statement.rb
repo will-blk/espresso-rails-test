@@ -10,5 +10,7 @@ class Statement < ApplicationRecord
   validates :cost, :merchant, :performed_at, :transaction_id, presence: true
 
   scope :completed, -> { where.not(category: nil) }
-  scope :open, -> { where(category: nil) }
+  scope :open, -> { where(category: nil, archived: false) }
+
+  default_scope { order(performed_at: :desc) }
 end
