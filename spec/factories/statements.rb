@@ -6,7 +6,7 @@ FactoryBot.define do
     cost { Faker::Number.between(from: 0, to: 10_000_000) }
     merchant { Faker::Company.name }
     transaction_id { Faker::Alphanumeric.unique.alphanumeric(number: 15) }
-    category
+    category { nil }
     card
   end
 end

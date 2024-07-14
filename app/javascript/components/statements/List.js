@@ -54,13 +54,14 @@ const List = (props) => {
 
     if(response.status == 200){
       alert('Anexado com sucesso')
+      window.location.reload()
     } else {
       alert('Tente novamente mais tarde')
     }
   }, [])
 
   const handleSetCategory = useCallback((event) => {
-    window.location.href = `/statements/${event.target.id}`
+    window.location.href = `/statements/${event.target.id}/edit`
   }, [])
 
   const employeeActions = useCallback((column, row) => (
@@ -92,18 +93,18 @@ const List = (props) => {
 
   const open_columns = useMemo(() => [
     { id: 'id', label: 'ID' },
-    { id: 'merchant', label: 'Empresa', minWidth: 170 },
-    { id: 'cost', label: 'Custo', minWidth: 100, format: /^(.*)(\d{2})$/, mask: "R$ $1,$2" },
-    { id: 'performed_at', label: 'Gasto em', minWidth: 100 },
+    { id: 'merchant', label: 'Empresa' },
+    { id: 'cost', label: 'Custo', format: /^(.*)(\d{2})$/, mask: "R$ $1,$2" },
+    { id: 'performed_at', label: 'Gasto em' },
     { id: 'transaction_id', label: 'Transacao' },
     { id: 'actions', content: user.role === 'admin' ? adminActions : employeeActions }
   ], [])
 
   const completed_columns = useMemo(() => [
     { id: 'id', label: 'ID' },
-    { id: 'merchant', label: 'Empresa', minWidth: 170 },
-    { id: 'cost', label: 'Custo', minWidth: 100, format: /^(.*)(\d{2})$/, mask: "R$ $1,$2" },
-    { id: 'performed_at', label: 'Gasto em', minWidth: 100 },
+    { id: 'merchant', label: 'Empresa' },
+    { id: 'cost', label: 'Custo', format: /^(.*)(\d{2})$/, mask: "R$ $1,$2" },
+    { id: 'performed_at', label: 'Gasto em' },
     { id: 'transaction_id', label: 'Transacao' }
   ], [])
 

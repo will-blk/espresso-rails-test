@@ -9,6 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 FactoryBot.create(:company) if Company.count.zero?
+FactoryBot.create(:category, company: Company.first) if Category.count.zero?
 if User.admin.count.zero?
   FactoryBot.create(:user, role: :admin, email: 'hello@world.com', password: '123456',
                            company: Company.first)
@@ -23,6 +24,6 @@ end
 
 if Statement.count.zero?
   User.employee.includes(:card).find_each do |employee|
-    FactoryBot.create_list(:statement, 10, card: employee.card)
+    FactoryBot.create_list(:statement, 10, card: employee.card, category: Company.first.categories.sample)
   end
 end
