@@ -6,7 +6,7 @@ class StatementPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     def resolve
       if user.admin?
-        scope.where(company: user.company)
+        scope.joins(:company).where(companies: { id: user.company })
       else
         scope.where(card: user.card)
       end

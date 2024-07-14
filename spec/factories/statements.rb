@@ -7,5 +7,6 @@ FactoryBot.define do
     merchant { Faker::Company.name }
     transaction_id { Faker::Alphanumeric.unique.alphanumeric(number: 15) }
     category
+    card
   end
 end

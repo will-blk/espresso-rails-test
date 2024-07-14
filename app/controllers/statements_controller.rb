@@ -4,8 +4,9 @@ class StatementsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @statements = policy_scope(Statement)
+    @completed_statements = policy_scope(Statement.completed)
+    @open_statements = policy_scope(Statement.open)
 
-    authorize @statements
+    authorize Statement
   end
 end
