@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope 'statements/:statement_id' do
+    patch 'archive', to: 'statements#archive'
+  end
+
   resources :companies, only: %i[new create] do
     resources :users, only: %i[new create index]
     resources :categories, only: %i[new create]

@@ -1,6 +1,12 @@
+# frozen_string_literal: true
+
 class StatementPolicy < ApplicationPolicy
   def index?
     true
+  end
+
+  def archive?
+    user.admin?
   end
 
   class Scope < ApplicationPolicy::Scope
