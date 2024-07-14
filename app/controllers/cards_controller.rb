@@ -13,7 +13,7 @@ class CardsController < ApplicationController
     authorize @card
 
     if @card.save
-      render json: { message: 'Card was successfully created.', status: :created }
+      render json: { message: 'Card was successfully created.' },  status: :created
     else
       render json: { errors: @card.errors.full_messages }, status: :unprocessable_entity
     end
