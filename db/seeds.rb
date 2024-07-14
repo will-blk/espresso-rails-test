@@ -8,12 +8,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-FactoryBot.create(:user, role: :admin, email: 'hello@world.com', password: '123456') if User.admin.count.zero?
-FactoryBot.create(:company, user: User.first) if Company.count.zero?
+FactoryBot.create(:company) if Company.count.zero?
+FactoryBot.create(:user, role: :admin, email: 'hello@world.com', password: '123456', company: Company.first) if User.admin.count.zero?
 FactoryBot.create_list(:user, 5, role: :employee, company: Company.first) if User.employee.count.zero?
 
 if Card.count.zero?
   User.employee.find_each do |employee|
     FactoryBot.create(:card, user: employee)
+  end
+end
+
+if Statement.count.zero?
+  User.employee.includes(:card).find_each do |employee|
+    FactoryBot.create_list(:statement, 10, card: employee.card)
   end
 end

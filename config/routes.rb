@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   resources :companies, only: %i[new create] do
     resources :users, only: %i[new create index]
     resources :categories, only: %i[new create]
+    resources :statements, only: :index
   end
 end

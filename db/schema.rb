@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_13_235219) do
+ActiveRecord::Schema.define(version: 2024_07_14_010346) do
 
   create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.bigint "user_id"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 2024_07_13_235219) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "card_id"
+    t.index ["card_id"], name: "index_statements_on_card_id"
     t.index ["category_id"], name: "index_statements_on_category_id"
   end
 
@@ -63,5 +65,6 @@ ActiveRecord::Schema.define(version: 2024_07_13_235219) do
 
   add_foreign_key "cards", "users"
   add_foreign_key "categories", "companies"
+  add_foreign_key "statements", "cards"
   add_foreign_key "statements", "categories"
 end
