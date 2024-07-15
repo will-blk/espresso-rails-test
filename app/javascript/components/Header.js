@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 
 const Header = (props) => {
-  const { user } = props
+  const { user, company } = props
   const token = document.querySelector('meta[name="csrf-token"]').content
 
   const handleLogout = useCallback(async () => {
@@ -26,7 +26,7 @@ const Header = (props) => {
   const renderLogout = useMemo(() => (
     <Toolbar>
       <Typography>{user.name}</Typography>
-      <Button onClick={handleLogout} color="secondary" variant="contained" size="small">Logout</Button>
+      <Button onClick={handleLogout} color="info" variant="contained" size="small">Logout</Button>
     </Toolbar>
   ), [user, handleLogout])
 
@@ -35,8 +35,10 @@ const Header = (props) => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Espresso
+            Espresso - { company.name }
           </Typography>
+          <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/${user.company_id}`}>Despesas</Button>
+          <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/${user.company_id}/users/new`}>Novo funcionário</Button>
           { renderLogout }
         </Toolbar>
       </AppBar>
