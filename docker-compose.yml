@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    environment:
+      RAILS_ENV: production
+      MYSQL_HOST: db
+      MYSQL_PASSWORD: mysecretpassword
+      #TODO: Move key to credential
+      RAILS_MASTER_KEY: 4f268701ff87d7629ee38c2f4dfa1e9c
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: mysecretpassword

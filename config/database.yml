@@ -50,5 +50,3 @@ test:
 production:
   <<: *default
   database: espresso-rails-test_production
-  username: espresso-rails-test
-  password: <%= ENV['ESPRESSO-RAILS-TEST_DATABASE_PASSWORD'] %>

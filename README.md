@@ -1,6 +1,9 @@
 # Requerimentos
 
+Tenha instalado
+
 * Ruby 2.7.8
+* NodeJS
 * Docker
 
 Para usuários linux, instale o cliente MySQL (dependência para gem mysql)
@@ -9,6 +12,7 @@ Para usuários linux, instale o cliente MySQL (dependência para gem mysql)
 
 # Executar
 
+## Roda localmente
 Para facilitar o desxenvolvimento, recomendamos utilizar a versão do MySQL em docker:
 
 ```
@@ -18,6 +22,12 @@ e depois execute normalmente o rails:
 
 ```
 bundle exec rails s
+```
+## Simule producão usando container
+
+```
+docker compose up --build
+docker compose run -it app bin/rails db:seed
 ```
 
 # Teste Técnico para Desenvolvedores Ruby on Rails

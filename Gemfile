@@ -48,19 +48,23 @@ gem 'devise'
 
 gem 'pundit'
 
+# Helpers for populating production as well
+gem 'cpf_faker'
+gem 'factory_bot_rails'
+gem 'faker'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   # Use rspec-rails for testing
   gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
-
-  gem 'cpf_faker'
-  gem 'factory_bot_rails'
-  gem 'faker'
 end
 
 group :development do
+  # Generates docker file acording to gems (Ported from rails 7)
+  gem 'dockerfile-rails'
+
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
