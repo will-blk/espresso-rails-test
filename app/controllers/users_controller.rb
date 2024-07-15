@@ -10,6 +10,8 @@ class UsersController < ApplicationController
   end
 
   def new
+    @company = Company.find(params[:company_id])
+
     authorize User
   end
 
@@ -18,9 +20,9 @@ class UsersController < ApplicationController
     authorize User
 
     if @user.save
-      redirect_to company_users_url(params[:company_id]), notice: 'User was successfully created.', status: :created
+      render json: { message: 'User was successfully created' }, status: :created
     else
-      render :new, status: :unprocessable_entity
+      render json: { errors: @user.errors.full_messages }
     end
   end
 

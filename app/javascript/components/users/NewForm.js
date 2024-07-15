@@ -1,8 +1,10 @@
 import React, { useCallback, useState } from "react"
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
-import Header from "../Header"
+import { Button, FormControl, MenuItem, Select, TextField } from "@mui/material"
 
-const NewForm = () => {
+const NewForm = (props) => {
+  const { company } = props
+  const token = document.querySelector('meta[name="csrf-token"]').content
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [role, setRole] = useState('')
@@ -19,23 +21,51 @@ const NewForm = () => {
     setRole(event.target.value)
   }, [])
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
+    try {
+     const response = await fetch(`/companies/${company.id}/users`,{
+        method: "POST",
+        headers: {
+          "X-CSRF-Token": token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user: {
+            name: name,
+            email: email,
+            role: role
+          }
+        })
+      })
+      const json = await response.json()
 
-  }, [])
+      if(response.status === 201) {
+        alert(json.message)
+        setName('')
+        setEmail('')
+        setRole('')
+      }
+      else {
+        alert(json.errors)
+      }
+    }
+    catch(error) {
+      console.error(error)
+    }
+  }, [name, email, role, company, token])
 
   return (
     <React.Fragment>
-      <Header/>
       <h2>Novo Usuário</h2>
-      <FormControl fullWidth onSubmit={handleSubmit} autoComplete="off">
+      <FormControl fullWidth autoComplete="off">
         <TextField id="outlined-basic" label="Email" sx={{mb: 3}} variant="outlined" required onChange={handleEmailChange} value={email}/>
         <TextField id="outlined-basic" label="Nome" sx={{mb: 3}} variant="outlined" required onChange={handleNameChange} value={name}/>
         <Select labelId="role-label" id="role-select" value={role} onChange={handleRoleChange} required>
           <MenuItem value='employee'>Empregado</MenuItem>
           <MenuItem value='admin'>Admin</MenuItem>
         </Select>
-        <Button variant="outlined" size="medium" type="submit">Registrar</Button>
-        </FormControl>
+        <Button variant="outlined" size="medium" onClick={handleSubmit}>Registrar</Button>
+      </FormControl>
     </React.Fragment>
   )
 }
