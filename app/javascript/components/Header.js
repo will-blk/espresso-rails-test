@@ -37,8 +37,9 @@ const Header = (props) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Espresso - { company.name }
           </Typography>
-          <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/${user.company_id}`}>Despesas</Button>
-          <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/${user.company_id}/users/new`}>Novo funcionário</Button>
+          <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/${user.company_id}/statements`}>Despesas</Button>
+          <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/${user.company_id}/users/new`}>Novo Usuário</Button>
+          <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/new`}>Nova Empresa</Button>
           { renderLogout }
         </Toolbar>
       </AppBar>
