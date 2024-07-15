@@ -38,7 +38,7 @@ const Header = (props) => {
             Espresso - { company.name }
           </Typography>
           <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/${user.company_id}/statements`}>Despesas</Button>
-          <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/${user.company_id}/users/new`}>Novo Usuário</Button>
+          <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/users/new`}>Novo Usuário</Button>
           <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/new`}>Nova Empresa</Button>
           { renderLogout }
         </Toolbar>

@@ -1,13 +1,14 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useMemo, useState } from "react"
 import { Button, FormControl, MenuItem, Select, TextField } from "@mui/material"
 
 const NewForm = (props) => {
-  const { company } = props
+  const { companies, company_id } = props
   const token = document.querySelector('meta[name="csrf-token"]').content
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [role, setRole] = useState('')
+  const [company, setCompany] = useState(company_id)
 
   const handleNameChange = useCallback((event) => {
     setName(event.target.value)
@@ -21,9 +22,13 @@ const NewForm = (props) => {
     setRole(event.target.value)
   }, [])
 
+  const handleCompanyChange = useCallback((event) => {
+    setCompany(event.target.value)
+  }, [])
+
   const handleSubmit = useCallback(async () => {
     try {
-     const response = await fetch(`/companies/${company.id}/users`,{
+     const response = await fetch(`/users`,{
         method: "POST",
         headers: {
           "X-CSRF-Token": token,
@@ -33,7 +38,8 @@ const NewForm = (props) => {
           user: {
             name: name,
             email: email,
-            role: role
+            role: role,
+            company_id: company
           }
         })
       })
@@ -44,6 +50,7 @@ const NewForm = (props) => {
         setName('')
         setEmail('')
         setRole('')
+        setCompany(company_id)
       }
       else {
         alert(json.errors)
@@ -54,15 +61,24 @@ const NewForm = (props) => {
     }
   }, [name, email, role, company, token])
 
+  const renderCompanies = useMemo(() => (
+    companies.map((company) => (
+      <MenuItem key={company.id} value={company.id}>{company.name}</MenuItem>
+    ))
+  ), [companies])
+
   return (
     <React.Fragment>
       <h2>Novo Usuário</h2>
       <FormControl fullWidth autoComplete="off">
         <TextField id="outlined-basic" label="Email" sx={{mb: 3}} variant="outlined" required onChange={handleEmailChange} value={email}/>
         <TextField id="outlined-basic" label="Nome" sx={{mb: 3}} variant="outlined" required onChange={handleNameChange} value={name}/>
-        <Select labelId="role-label" id="role-select" value={role} onChange={handleRoleChange} required>
-          <MenuItem value='employee'>Empregado</MenuItem>
-          <MenuItem value='admin'>Admin</MenuItem>
+        <Select id="role-select" value={role} onChange={handleRoleChange} required>
+          <MenuItem key='1' value='employee'>Empregado</MenuItem>
+          <MenuItem key='2' value='admin'>Admin</MenuItem>
+        </Select>
+        <Select id="company-select" value={company} onChange={handleCompanyChange} required>
+          {renderCompanies}
         </Select>
         <Button variant="outlined" size="medium" onClick={handleSubmit}>Registrar</Button>
       </FormControl>

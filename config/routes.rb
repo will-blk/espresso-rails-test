@@ -24,8 +24,10 @@ Rails.application.routes.draw do
     patch 'attach_invoice'
   end
 
+  resources :users, only: %i[new create]
+
   resources :companies, only: %i[new create] do
-    resources :users, only: %i[new create index]
+    resources :users, only: %i[index]
     resources :categories, only: %i[new create]
     resources :statements, only: :index
   end

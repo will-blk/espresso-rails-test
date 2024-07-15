@@ -10,13 +10,13 @@ class UsersController < ApplicationController
   end
 
   def new
-    @company = Company.find(params[:company_id])
+    @companies = Company.all
 
     authorize User
   end
 
   def create
-    @user = User.new(user_params.merge(company_id: params[:company_id]))
+    @user = User.new(user_params)
     authorize User
 
     if @user.save
@@ -29,6 +29,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :name, :role)
+    params.require(:user).permit(:email, :name, :role, :company_id)
   end
 end
