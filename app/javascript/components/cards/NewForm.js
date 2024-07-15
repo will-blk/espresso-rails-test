@@ -12,7 +12,7 @@ const NewForm = (props) => {
 
   const handleSubmit = useCallback(async () => {
     try {
-     const response = await fetch(`/users/${user_id}/cards.json`,{
+     const response = await fetch(`/users/${user_id}/cards`,{
         method: "POST",
         headers: {
           "X-CSRF-Token": token,
@@ -24,8 +24,9 @@ const NewForm = (props) => {
       })
       const json = await response.json()
 
-      if(response.status === 200) {
+      if(response.status === 201) {
         alert(json.message)
+        setlastDigits('')
       }
       else {
         alert(json.errors)

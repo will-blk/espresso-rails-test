@@ -40,6 +40,7 @@ const Header = (props) => {
           <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/${user.company_id}/statements`}>Despesas</Button>
           <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/users/new`}>Novo Usuário</Button>
           <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/companies/new`}>Nova Empresa</Button>
+          <Button variant='contained' color='info' size='small' onClick={() => window.location.href = `/users/${user.id}/cards/new`}>Novo Cartão</Button>
           { renderLogout }
         </Toolbar>
       </AppBar>
