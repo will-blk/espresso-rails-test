@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from "react"
-import { Button, TextField } from "@mui/material"
+import { Button, FormControl, TextField } from "@mui/material"
 
 const NewForm = () => {
   const [name, setName] = useState('')
   const [cnpj, setCnpj] = useState('')
+  const token = document.querySelector('meta[name="csrf-token"]').content
 
   const handleNameChange = useCallback((event) => {
     setName(event.target.value)
@@ -15,7 +16,7 @@ const NewForm = () => {
 
   const handleSubmit = useCallback(async () => {
     try {
-     const response = await fetch(`/company`,{
+     const response = await fetch("/companies", {
         method: "POST",
         headers: {
           "X-CSRF-Token": token,
@@ -27,8 +28,10 @@ const NewForm = () => {
       })
       const json = await response.json()
 
-      if(response.status === 200) {
+      if(response.status === 201) {
         alert(json.message)
+        setCnpj('')
+        setName('')
       }
       else {
         alert(json.errors)
@@ -42,11 +45,11 @@ const NewForm = () => {
   return (
     <React.Fragment>
       <h2>Nova Companhia</h2>
-      <form autoComplete="off" onSubmit={handleSubmit}>
+      <FormControl fullWidth autoComplete="off">
         <TextField id="outlined-basic" label="Nome" sx={{mb: 3}} fullWidth variant="outlined" required onChange={handleNameChange} value={name}/>
         <TextField id="outlined-basic" label="CNPJ" sx={{mb: 3}} fullWidth variant="outlined" required onChange={handleCnpjChange} value={cnpj}/>
-        <Button variant="outlined" size="medium" type="submit">Registrar</Button>
-      </form>
+        <Button variant="outlined" size="medium" onClick={handleSubmit}>Registrar</Button>
+      </FormControl>
     </React.Fragment>
   )
 }

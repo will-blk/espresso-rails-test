@@ -13,9 +13,9 @@ class CompaniesController < ApplicationController
     authorize @company
 
     if @company.save
-      redirect_to new_company_user_url(@company), notice: 'Company was successfully created.', status: :created
+      render json: { message: 'Company was successfully created.' }, status: :created
     else
-      render :new, status: :unprocessable_entity
+      render json: { errors: @company.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
