@@ -6,6 +6,6 @@ FactoryBot.define do
     email { Faker::Internet.unique.email }
     role { User::ROLES.keys.sample }
     password { Faker::Internet.password }
-    company { employee? ? create(:company) : nil }
+    company
   end
 end

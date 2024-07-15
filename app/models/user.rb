@@ -12,7 +12,7 @@ class User < ApplicationRecord
          :rememberable, :validatable
 
   has_one :card
-  belongs_to :company, optional: true
+  belongs_to :company
 
   validates :name, :role, presence: true
   validates :company, presence: true, if: -> { employee? }

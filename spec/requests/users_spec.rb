@@ -8,25 +8,26 @@ RSpec.describe 'UsersController' do
 
   before { sign_in(user) }
 
-  describe 'POST /companies/:id/users' do
+  describe 'POST /users' do
     let(:params) do
       {
         user: {
           name: Faker::Name.name,
           email: Faker::Internet.unique.email,
-          role: User::ROLES.keys.sample
+          role: User::ROLES.keys.sample,
+          company_id: company.id
         }
       }
     end
 
     it 'returns http created' do
-      post("/companies/#{company.id}/users", params: params)
+      post("/users", params: params)
 
       expect(response).to have_http_status(:created)
     end
 
     it 'saves user' do
-      expect { post("/companies/#{company.id}/users", params: params) }.to change(User, :count).by(1)
+      expect { post("/users", params: params) }.to change(User, :count).by(1)
     end
 
     context 'with invalid params' do
@@ -41,7 +42,7 @@ RSpec.describe 'UsersController' do
       end
 
       it 'returns bad request' do
-        post("/companies/#{company.id}/users", params: params)
+        post("/users", params: params)
 
         expect(response).to have_http_status(:unprocessable_entity)
       end
