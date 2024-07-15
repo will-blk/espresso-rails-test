@@ -3,7 +3,7 @@ import { Button, FormControl, TextField } from "@mui/material"
 
 const NewForm = (props) => {
   const { user_id } = props
-  const [lastDigits, setlastDigits] = useState('1234')
+  const [lastDigits, setlastDigits] = useState('')
   const token = document.querySelector('meta[name="csrf-token"]').content
 
   const handlelastDigitsChange = useCallback((event) => {
